@@ -12,5 +12,7 @@
 // }
 var a = document.querySelector("h1")
 a.addEventListener("click",function(){
-    console.log("hi")
+    a.innerHTML ="hello"
+    a.style.color = "yellow"
+    a.style.backgroundColor ='black'
 })
