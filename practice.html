@@ -7,17 +7,17 @@
 <link rel="stylesheet" href="practice.css">
 </head>
 <body>
-    <div class="container">
-     <div class="search-container">
-            <input 
-            id="searchInput"  type="text" placeholder="Search for meals..." >
-            <button id="searchButton" >
-                Search
-            </button>
-        </div>
-        <div id="resultsContainer">
-            <!-- Results will appear here -->
-        </div>
+   <div id="selectedMealDisplay" class="selected-meal-display">
+        <!-- Selected meal details will appear here -->
+    </div>
+    
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search for Your Favorite Meal...">
+        <button id="searchButton">Search</button>
+    </div>
+    
+    <div id="resultsContainer" class="meals-grid">
+        <!-- Search results will appear here -->
     </div>
     <script src="practice.js" ></script>
 </body>
