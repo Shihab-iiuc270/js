@@ -1,36 +1,18 @@
-const searchInput = document.getElementById('searchInput');
-        const searchButton = document.getElementById('searchButton');
-        const resultsContainer = document.getElementById('resultsContainer');
-        const selectedMealDisplay = document.getElementById('selectedMealDisplay');
+        document.getElementById("searchButton").addEventListener("click", function(){
+            const searchInput = document.getElementById('searchInput').value;
 
-        // Add event listener for search button
-        searchButton.addEventListener("click", function(){
-            var searchTerm = searchInput.value.trim();
-            if(searchTerm !== ''){
-                searchMeals(searchTerm);
+            if(searchInput != ''){
+                searchMeals(searchInput);
             } else {
                 alert('Please enter a search term!');
             }
         });
 
-        // Add event listener for Enter key in search input
-        // searchInput.addEventListener("keypress", function(event) {
-        //     if (event.key === "Enter") {
-        //         var searchTerm = searchInput.value.trim();
-        //         if(searchTerm !== ''){
-        //             searchMeals(searchTerm);
-        //         } else {
-        //             alert('Please enter a search term!');
-        //         }
-        //     }
-        // });
+     
+        function searchMeals(searchInput){
+            const resultsContainer = document.getElementById('resultsContainer');
 
-        // Function to search for meals
-        function searchMeals(searchTerm){
-            // Show loading state
-            // resultsContainer.innerHTML = '<div class="loading">Searching for meals...</div>';
-            
-            fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`)
+            fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`)
             .then((res)=>{
                 if(!res.ok){
                     const message = `Error : ${res.status}`;
@@ -41,7 +23,7 @@ const searchInput = document.getElementById('searchInput');
             })
             .then((data)=>{
                if(data.meals == null){
-                 resultsContainer.innerHTML = '<div class="no-results">No meals found. Try another search!</div>';
+                alert('No meals found. Try another search!');
                  return;
                } else {
                 displayMeals(data.meals);
@@ -53,7 +35,6 @@ const searchInput = document.getElementById('searchInput');
             })
         }
 
-        // Function to display meals in grid
         function displayMeals(meals){
             resultsContainer.innerHTML = '';
             
@@ -64,37 +45,35 @@ const searchInput = document.getElementById('searchInput');
                     <img src="${meal.strMealThumb}" alt="${meal.strMeal}" class="meal-image">
                     <p class="meal-name">${meal.strMeal}</p>
                         <button class="view-recipe-btn" onclick="showMealDetails('${meal.idMeal}')">
-                            👁️ View Item Details
+                            View Ingredients
                         </button>
                 `;
                 resultsContainer.appendChild(div);
             });
         }
 
-        // Function to show meal details
         function showMealDetails(mealId) {
+            const selectedMealDisplay = document.getElementById('selectedMealDisplay');
+
             fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`)
-                .then(function(response) {
-                    if (!response.ok) {
+                .then(function(res) {
+                    if (!res.ok) {
                         throw new Error('Network error');
                     }
-                    return response.json();
+                    return res.json();
                 })
                 .then((data)=>{
                     const meal = data.meals[0]; 
                     displaySelectedMeal(meal);
                 })
-                .catch(function(error) {
-                    alert('Error loading meal details: ' + error.message);
+                .catch((err) => {
+                    alert('Error loading meal details');
                 });
         }
 
-        // Function to display selected meal
        function displaySelectedMeal(meal) {
-    // Clear previous meal details first
     selectedMealDisplay.innerHTML = '';
     
-    // Create ingredients list (without measures)
     let ingredientsHTML = '';
     for (let i = 1; i <= 20; i++) {
         const ingredient = meal['strIngredient' + i];
@@ -119,18 +98,9 @@ const searchInput = document.getElementById('searchInput');
     
     selectedMealDisplay.appendChild(div);
     selectedMealDisplay.style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
  function closeMealDisplay() {
             selectedMealDisplay.style.display = 'none';
             currentSelectedMeal = null;
  }
-        // Function to close meal display
-        // function closeMealDisplay() {
-        //     selectedMealDisplay.style.display = 'none';
-        // }
-
-        // // Load some initial meals on page load
-        // window.addEventListener('load', function() {
-        //     searchMeals('chicken');
-        // });
+       
