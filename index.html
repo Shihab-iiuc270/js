@@ -7,22 +7,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- <h1>Welcome to DOM</h1> -->
-    <!-- <div class="box-container">
-        <div class="box">box-1</div>
-        <div class="box">box-2</div>
-        <div class="box">box-3</div>
-        <div class="box">box-4</div>
-        <div class="box">box-5</div>
-        <div class="box">box-6</div>
-        <div class="box">box-7</div>
-    </div> -->
-    <!-- <div id="bulb">
-
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search drinks...">
+        <button id ="search"onclick="searchDrinks()">Search</button>
     </div>
-    <button>ON</button> -->
-    <h1>hello -->1</h1>
-    <h1>hello --> 2</h1>
-    <script src="app.js"></script>
+
+    <div class="main-container">
+        <div id="productContainer" class="product-container">
+        </div>
+        <div id="cartContainer" class="cart-container">
+            <h3>Your Drinks Cart <span id="cartCount">0</span></h3>
+            <div id="cartItems">
+            </div>
+        </div>
+    </div>
+
+    <script src="module7.js"></script>
 </body>
 </html>

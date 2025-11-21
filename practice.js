@@ -78,7 +78,9 @@
     for (let i = 1; i <= 20; i++) {
         const ingredient = meal['strIngredient' + i];
         if (ingredient && ingredient.trim() !== '') {
-            ingredientsHTML += `<li>${ingredient}</li>`;
+            const li = document.createElement('li');
+            li.textContent = ingredient;
+            ingredientsHTML += li.outerHTML;
         }
     }
     
